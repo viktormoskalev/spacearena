@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///C:/Users/User/Downloads/Telegram%20Desktop/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+.container-calculator{
+    border: solid black 3px;
+    width: 320px;
+padding:40px 10px;
+    margin: 40px auto;
+}
+
+.setting-game{
+    border: solid rgb(147, 147, 147) 1px ;
+    padding: 20px 10px;
+
+}
+
+.setting-game:hover{
+    background-color: rgb(213, 213, 213);
+}
+    </style>
+</head>
+<body>
+<div class="container-calculator">
+
+    <div class="setting-game">
+        <input type="radio" id="worcdayqwe" name="day">
+        <label for="worcdayqwe">Будний день</label>
+     
+        <input type="radio" id="holidayqwe" checked="" name="day">
+        <label for="holidayqwe">Выходной ,каникулы</label>
+    </div>
+
+
+    <div class="setting-game">
+        <input id="peopleqwe" value="6" min="6" type="number">
+        <label for="peopleqwe"> Количество игроков(от 6)</label>
+   
+    </div>
+    <div class="setting-game">
+        <input id="lasertqwe" checked="" type="checkbox">
+        <label for="lasertqwe"> Лазертаг, 60 мин</label>
+      
+    </div>
+    <div class="setting-game">
+        <input id="sevendqwe" type="checkbox">
+        <label for="sevendqwe"> 7D-кинотеатр, 15 мин</label>
+  
+    </div>
+    <div class="setting-game">
+        <input id="qorpoquestqwe" type="checkbox">
+        <label for="qorpoquestqwe">  Квест комната, 60 мин</label>
+       
+    </div>
+    <div class="setting-game">
+        <input id="rollersqwe" type="checkbox">
+        <label for="rollersqwe">  Катание на роликах, 45 мин</label>
+  
+    </div>
+    <div class="setting-game">
+        <input id="animatorqwe" type="checkbox">
+        <label for="animatorqwe">  Анимационная програма , 45 мин</label>
+      </div>
+
+    <div class="setting-game">
+        <input id="playstationqwe" type="checkbox">
+        <label for="playstationqwe"> Игра в Play Station , 45 мин</label>
+      </div>
+
+    <div class="setting-game">
+        <input id="escortqwe" type="checkbox">
+        <label for="escortqwe"> Постоянное сопровождение</label>
+      </div>
+
+
+<p> Стоимость: <span class="costqwe">1440</span> грн</p>
+<p> Длительность: <span class="durationqwe">60</span> мин</p>
+
+    </div>
+<script>
+const workday= document.querySelector("#worcdayqwe");
+const holyday= document.querySelector("#holidayqwe");
+const people= document.querySelector("#peopleqwe");
+const laser = document.querySelector("#lasertqwe");
+const seven = document.querySelector("#sevendqwe");
+const quest = document.querySelector("#qorpoquestqwe");
+const roller = document.querySelector("#rollersqwe");
+const animator = document.querySelector("#animatorqwe");
+const escort = document.querySelector("#escortqwe");
+const playstation = document.querySelector("#playstationqwe");
+
+
+
+const cost = document.querySelector(".costqwe");
+const duration = document.querySelector(".durationqwe");
+
+let fullpriice =0;
+let fullduration =60;
+let everycost={
+    laser:180,
+    seven:100,
+    quest:200,
+    roller:100,
+    animator:100,
+    playstation:100,
+    escort:125,
+
+
+}
+let fullline= {
+    laser:1,
+    seven:0,
+    quest:0,
+    roller:0,
+    animator:0,
+    playstation:0,
+    escort:0,
+}
+function calculatecost(){
+if(holyday.checked){
+    everycost["laser"]=240;
+  
+} else {
+    everycost["laser"]=180;
+}
+if(holyday.checked){
+    everycost["quest"]=220;
+  
+} else {
+    everycost["quest"]=200;
+}
+
+
+
+
+    if(laser.checked){
+     fullline["laser"]=1;
+    } else{
+        fullline["laser"]=0;
+    }
+
+    
+    if(seven.checked){
+     fullline["seven"]=1;
+    } else{
+        fullline["seven"]=0;
+    }
+
+    if(quest.checked){
+     fullline["quest"]=1;
+    } else{
+        fullline["quest"]=0;
+    }
+
+
+    if(roller.checked){
+     fullline["roller"]=1;
+    } else{
+        fullline["roller"]=0;
+    }
+
+    if(animator.checked){
+     fullline["animator"]=1;
+    } else{
+        fullline["animator"]=0;
+    }
+
+
+    if(escort.checked){
+     fullline['escort']=1;
+    } else{
+        fullline['escort']=0;
+    }
+
+    if(playstation.checked){
+     fullline['playstation']=1;
+    } else{
+        fullline['playstation']=0;
+    }
+
+
+    fullduration=(
+    fullline["seven"]*15 
+    +fullline["laser"]*60
+    +fullline["quest"]*60
+    +fullline["roller"]*45
+    +fullline["animator"]*45
+    +fullline["playstation"]*45
+    
+    );
+
+
+    fullpriice=(people.value*everycost["laser"]*fullline["laser"]
+    +people.value*everycost["seven"]*fullline["seven"]
+    +people.value*everycost["quest"]*fullline["quest"]
+    +people.value*everycost["roller"]*fullline["roller"]
+    +people.value*everycost["animator"]*fullline["animator"]
+    +people.value*everycost["playstation"]*fullline["playstation"]
+    +everycost["escort"]*fullline["escort"]* Math.round(fullduration / 60) 
+    );
+    duration.innerHTML=fullduration;
+    cost.innerHTML=fullpriice;
+
+
+}
+people.addEventListener('change', calculatecost);
+workday.addEventListener('change', calculatecost);
+holyday.addEventListener('change', calculatecost);
+laser.addEventListener('change', calculatecost);
+seven.addEventListener('change', calculatecost);
+quest.addEventListener('change', calculatecost);
+roller.addEventListener('change', calculatecost);
+escort.addEventListener('change', calculatecost);
+animator.addEventListener('change', calculatecost);
+playstation.addEventListener('change', calculatecost);
+
+
+calculatecost();
+
+</script>
+
+
+
+
+</body></html>
